@@ -1,0 +1,18 @@
+{
+    "friends": [
+        {
+            "name": "Brendad Aronoff",
+            "image": "https://cdn.pixabay.com/photo/2021/05/04/13/29/portrait-6228705_1280.jpg",
+            "lastMessage": "What's the plan?",
+            "lastMessageTime": "Fri",
+            "isOnline": false
+        },
+        {
+            "name": "Hailey Cook",
+            "image": "https://cdn.pixabay.com/photo/2021/06/11/12/26/woman-6328478_1280.jpg",
+            "lastMessage": "Thank you!",
+            "lastMessageTime": "Mon",
+            "isOnline": true
+        }
+    ]
+}
