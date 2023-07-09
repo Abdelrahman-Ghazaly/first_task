@@ -23,7 +23,7 @@ class LogInProvider with ChangeNotifier {
       Params(userName: userName, password: password),
     );
 
-    failureOrUserEntity.fold(
+    await failureOrUserEntity.fold(
       (faliure) => _errorMessage = faliure.message,
       (userEntity) => _userEntity = userEntity,
     );

@@ -19,18 +19,47 @@ class AuthenticationTetField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: controller,
-      obscureText: isPassword,
-      decoration: InputDecoration(
-        label: Text(label),
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        prefix: Padding(
-          padding: const EdgeInsets.only(right: kDeafultPadding / 2),
-          child: Icon(icon),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            color: AppColors.black,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
         ),
-        hintText: hintText,
-      ),
+        Container(
+          height: kDeafultAppBarHeight,
+          width: kScreenWidth(context),
+          decoration: const BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                color: AppColors.grey,
+                width: 1.5,
+              ),
+            ),
+          ),
+          child: Row(
+            children: [
+              Icon(icon),
+              Expanded(
+                child: TextField(
+                  controller: controller,
+                  obscureText: isPassword,
+                  decoration: InputDecoration(
+                    hintText: hintText,
+                    border: InputBorder.none,
+                    contentPadding:
+                        const EdgeInsets.only(left: kDeafultPadding / 2),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
