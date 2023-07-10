@@ -1,5 +1,4 @@
 import 'package:first_assignment/core/constants/constants.dart';
-import 'package:first_assignment/features/home/domain/entities/sponser_entities.dart';
 import 'package:first_assignment/features/home/presentation/provider/sponser_provider.dart';
 import 'package:first_assignment/features/home/presentation/widgets/shop_now_button.dart';
 import 'package:flutter/material.dart';
@@ -12,82 +11,84 @@ class SponserBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SponserEntity? sponserEntity =
-        context.select<SponserProvider, SponserEntity?>(
-      (value) => value.sponserEntity,
-    );
-    if (sponserEntity == null) {
-      return const CircularProgressIndicator();
-    } else {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Sponser',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
-          ),
-          const SizedBox(height: kDeafultPadding),
-          SizedBox(
-            height: kScreenHeight(context) * 0.4,
-            width: kScreenWidth(context),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CircleAvatar(
-                  backgroundImage: NetworkImage(sponserEntity.iconUrl),
-                  radius: 30,
+    return Consumer<SponserProvider>(
+      builder: (context, value, child) {
+        if (value.sponserEntity == null) {
+          return const CircularProgressIndicator();
+        } else {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Sponser',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
                 ),
-                const SizedBox(width: kDeafultPadding / 2),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        sponserEntity.title,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 25,
-                        ),
-                      ),
-                      Text(
-                        sponserEntity.description,
-                        style: const TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            image: DecorationImage(
-                              image: NetworkImage(sponserEntity.imageUrl),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              ),
+              const SizedBox(height: kDeafultPadding),
+              SizedBox(
+                height: kScreenHeight(context) * 0.4,
+                width: kScreenWidth(context),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CircleAvatar(
+                      backgroundImage:
+                          NetworkImage(value.sponserEntity!.iconUrl),
+                      radius: 30,
+                    ),
+                    const SizedBox(width: kDeafultPadding / 2),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                            child: Text(
-                              sponserEntity.promo,
+                          Text(
+                            value.sponserEntity!.title,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 25,
                             ),
                           ),
-                          const ShopNowButton(),
+                          Text(
+                            value.sponserEntity!.description,
+                            style: const TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                      value.sponserEntity!.imageUrl),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  value.sponserEntity!.promo,
+                                ),
+                              ),
+                              const ShopNowButton(),
+                            ],
+                          )
                         ],
-                      )
-                    ],
-                  ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-        ],
-      );
-    }
+              ),
+            ],
+          );
+        }
+      },
+    );
   }
 }

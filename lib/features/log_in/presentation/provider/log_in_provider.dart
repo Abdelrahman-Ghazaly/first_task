@@ -1,6 +1,7 @@
+import 'package:first_assignment/features/home/presentation/screens/home_screen.dart';
 import 'package:first_assignment/features/log_in/domain/entities/user_entity.dart';
 import 'package:first_assignment/features/log_in/domain/use_cases/log_in_use_case.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 class LogInProvider with ChangeNotifier {
   LogInProvider({required LogInUseCase logInUseCase})
@@ -8,12 +9,13 @@ class LogInProvider with ChangeNotifier {
 
   final LogInUseCase _logInUseCase;
   UserEntity? _userEntity;
-  String _errorMessage = '';
+  String _message = '';
 
   UserEntity? get userEntity => _userEntity;
-  String get errorMessage => _errorMessage;
+  String get message => _message;
 
-  Future<void> logIn({
+  Future<dynamic> logIn(
+    BuildContext context, {
     required String userName,
     required String password,
   }) async {
@@ -22,10 +24,20 @@ class LogInProvider with ChangeNotifier {
     );
 
     failureOrUserEntity.fold(
-      (faliure) => _errorMessage = faliure.message,
-      (userEntity) => _userEntity = userEntity,
+      (faliure) => _message = faliure.message,
+      (userEntity) {
+        _userEntity = userEntity;
+        _message = 'Logged in successfully';
+      },
     );
     notifyListeners();
-    print('notified');
+    if (failureOrUserEntity.isRight()) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HomeScreen(),
+        ),
+      );
+    }
   }
 }

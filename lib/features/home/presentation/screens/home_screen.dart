@@ -1,22 +1,34 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:first_assignment/core/constants/constants.dart';
-import 'package:first_assignment/features/home/domain/entities/friend_entity.dart';
 import 'package:first_assignment/features/home/presentation/provider/friends_provider.dart';
 import 'package:first_assignment/features/home/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatelessWidget {
+import '../provider/sponser_provider.dart';
+
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final List<FriendEntity> friendEntities =
-        context.select<FriendsProvider, List<FriendEntity>>(
-      (value) => value.friendEntities,
-    );
+  State<HomeScreen> createState() => _HomeScreenState();
+}
 
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    _getData();
+    super.initState();
+  }
+
+  Future<void> _getData() async {
+    await context.read<FriendsProvider>().getFriends();
+    await context.read<SponserProvider>().getSponser();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return DefaultTabController(
       length: 4,
       child: Scaffold(
@@ -39,17 +51,24 @@ class HomeScreen extends StatelessWidget {
                             fontSize: 18,
                           ),
                         ),
-                        if (friendEntities.isEmpty)
-                          const CircularProgressIndicator()
-                        else
-                          ...List.generate(
-                            friendEntities.length,
-                            (index) {
-                              return MessageBox(
-                                friendEntity: friendEntities[index],
+                        Consumer<FriendsProvider>(
+                          builder: (context, value, child) {
+                            if (value.friendEntities.isEmpty) {
+                              return const CircularProgressIndicator();
+                            } else {
+                              return Column(
+                                children: List.generate(
+                                  value.friendEntities.length,
+                                  (index) {
+                                    return MessageBox(
+                                      friendEntity: value.friendEntities[index],
+                                    );
+                                  },
+                                ),
                               );
-                            },
-                          ),
+                            }
+                          },
+                        )
                       ],
                     )
                   ],
