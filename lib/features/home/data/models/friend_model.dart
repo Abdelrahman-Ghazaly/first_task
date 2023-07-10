@@ -18,4 +18,14 @@ class FriendModel extends FriendEntity {
       isOnline: map['isOnline'] ?? false,
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'name': name,
+      'imageUrl': imageUrl,
+      'lastMessage': lastMessage,
+      'lastMessageTime': lastMessageTime,
+      'isOnline': isOnline,
+    };
+  }
 }

@@ -14,6 +14,7 @@ class LogInScreen extends StatefulWidget {
 class _LogInScreenState extends State<LogInScreen> {
   late TextEditingController _userName;
   late TextEditingController _password;
+  bool isVisible = true;
 
   @override
   void initState() {
@@ -119,28 +120,6 @@ class _LogInScreenState extends State<LogInScreen> {
                     ),
                   ),
                 ],
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Consumer<LogInProvider>(
-                  builder: (context, value, child) {
-                    if (value.message == '') {
-                      return Container();
-                    } else {
-                      return SizedBox(
-                        height: kScreenHeight(context) * 0.05,
-                        width: kScreenWidth(context),
-                        child: SnackBar(
-                          content: Center(
-                            child: Text(
-                              value.message,
-                            ),
-                          ),
-                        ),
-                      );
-                    }
-                  },
-                ),
               ),
             ],
           ),

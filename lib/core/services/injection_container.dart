@@ -1,4 +1,7 @@
+import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:dio/dio.dart';
+import 'package:first_assignment/core/network/network_info.dart';
+import 'package:first_assignment/features/home/data/data_sources/home_local_data_source.dart';
 import 'package:first_assignment/features/home/data/data_sources/home_remote_data_source.dart';
 import 'package:first_assignment/features/home/data/repositories/home_repository_impl.dart';
 import 'package:first_assignment/features/home/domain/repositories/home_repository.dart';
@@ -56,6 +59,8 @@ void initRepository() {
   sl.registerLazySingleton<HomeRepository>(
     () => HomeRepositoryImpl(
       remoteDataSource: sl<HomeRemoteDataSource>(),
+      localDataSource: sl<HomeLocalDataSource>(),
+      networkInfo: sl<NetworkInfo>(),
     ),
   );
 }
@@ -68,8 +73,17 @@ void initDataSources() {
   sl.registerLazySingleton<HomeRemoteDataSource>(
     () => HomeRemoteDataSourceImpl(dio: sl<Dio>()),
   );
+
+  sl.registerLazySingleton(() => HomeLocalDataSourceImpl());
+}
+
+void initHelperClasses() {
+  sl.registerLazySingleton<NetworkInfo>(
+      () => NetworkInfoImpl(connectionChecker: sl<DataConnectionChecker>()));
 }
 
 void initExternalPackages() {
   sl.registerLazySingleton<Dio>(() => Dio());
+  sl.registerLazySingleton<DataConnectionChecker>(
+      () => DataConnectionChecker());
 }

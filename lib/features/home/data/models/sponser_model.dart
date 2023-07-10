@@ -18,4 +18,14 @@ class SponserModel extends SponserEntity {
       promo: map['promo'] ?? '',
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'iconUrl': iconUrl,
+      'imageUrl': imageUrl,
+      'title': title,
+      'description': description,
+      'promo': promo,
+    };
+  }
 }

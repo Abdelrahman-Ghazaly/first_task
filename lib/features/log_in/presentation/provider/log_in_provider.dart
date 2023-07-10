@@ -3,7 +3,7 @@ import 'package:first_assignment/features/log_in/domain/entities/user_entity.dar
 import 'package:first_assignment/features/log_in/domain/use_cases/log_in_use_case.dart';
 import 'package:flutter/material.dart';
 
-class LogInProvider with ChangeNotifier {
+class LogInProvider extends ChangeNotifier {
   LogInProvider({required LogInUseCase logInUseCase})
       : _logInUseCase = logInUseCase;
 
@@ -32,11 +32,16 @@ class LogInProvider with ChangeNotifier {
     );
     notifyListeners();
     if (failureOrUserEntity.isRight()) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const HomeScreen(),
-        ),
+      Future.delayed(
+        Duration(seconds: 2),
+        () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomeScreen(),
+            ),
+          );
+        },
       );
     }
   }
