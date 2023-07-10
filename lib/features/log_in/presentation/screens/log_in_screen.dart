@@ -51,11 +51,9 @@ class _LogInScreenState extends State<LogInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final UserEntity? userEntity =
-        context.select<LogInProvider, UserEntity?>((value) => value.userEntity);
+    final UserEntity? userEntity = context.watch<LogInProvider>().userEntity;
 
-    final String errorMessage =
-        context.select<LogInProvider, String>((value) => value.errorMessage);
+    final String errorMessage = context.watch<LogInProvider>().errorMessage;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -106,6 +104,7 @@ class _LogInScreenState extends State<LogInScreen> {
                               userName: _userName.text,
                               password: _password.text,
                             );
+
                         if (userEntity != null) {
                           if (!mounted) return;
                           _getData(context);

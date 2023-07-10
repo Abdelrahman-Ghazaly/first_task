@@ -1,5 +1,3 @@
-import 'package:dartz/dartz.dart';
-import 'package:first_assignment/core/error/failure.dart';
 import 'package:first_assignment/features/log_in/domain/entities/user_entity.dart';
 import 'package:first_assignment/features/log_in/domain/use_cases/log_in_use_case.dart';
 import 'package:flutter/foundation.dart';
@@ -19,14 +17,15 @@ class LogInProvider with ChangeNotifier {
     required String userName,
     required String password,
   }) async {
-    final Either<Failure, UserEntity> failureOrUserEntity = await _logInUseCase(
+    final failureOrUserEntity = await _logInUseCase(
       Params(userName: userName, password: password),
     );
 
-    await failureOrUserEntity.fold(
+    failureOrUserEntity.fold(
       (faliure) => _errorMessage = faliure.message,
       (userEntity) => _userEntity = userEntity,
     );
     notifyListeners();
+    print('notified');
   }
 }

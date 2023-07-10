@@ -35,14 +35,14 @@ void initProvider() {
 
 void initFeatuers() {
   sl.registerLazySingleton(
-    () => LogInUseCase(repository: sl()),
+    () => LogInUseCase(repository: sl<LogInRepository>()),
   );
 
   sl.registerLazySingleton(
-    () => GetFriendsUseCase(repository: sl()),
+    () => GetFriendsUseCase(repository: sl<HomeRepository>()),
   );
   sl.registerLazySingleton(
-    () => GetSponsersUseCase(repository: sl()),
+    () => GetSponsersUseCase(repository: sl<HomeRepository>()),
   );
 }
 
