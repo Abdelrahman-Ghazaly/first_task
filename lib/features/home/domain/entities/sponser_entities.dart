@@ -1,5 +1,8 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+
 class SponserEntity {
   SponserEntity({
+    required this.id,
     required this.iconUrl,
     required this.imageUrl,
     required this.title,
@@ -7,6 +10,7 @@ class SponserEntity {
     required this.promo,
   });
 
+  final int id;
   final String iconUrl;
   final String imageUrl;
   final String title;

@@ -3,8 +3,10 @@
 import 'package:first_assignment/core/constants/constants.dart';
 import 'package:first_assignment/features/home/presentation/provider/friends_provider.dart';
 import 'package:first_assignment/features/home/presentation/widgets/widgets.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sqlite_viewer/sqlite_viewer.dart';
 
 import '../provider/sponser_provider.dart';
 
@@ -74,7 +76,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              Container(),
+              Center(
+                child: FloatingActionButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (_) => const DatabaseList()));
+                  },
+                ),
+              ),
               Container(),
               Container(),
             ],

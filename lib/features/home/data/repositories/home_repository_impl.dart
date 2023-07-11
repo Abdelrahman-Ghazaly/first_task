@@ -1,20 +1,34 @@
 import 'package:dartz/dartz.dart';
 import 'package:first_assignment/core/error/exception.dart';
 import 'package:first_assignment/core/error/failure.dart';
+import 'package:first_assignment/core/network/network_info.dart';
+import 'package:first_assignment/features/home/data/data_sources/home_local_data_source.dart';
 import 'package:first_assignment/features/home/data/data_sources/home_remote_data_source.dart';
 import 'package:first_assignment/features/home/domain/entities/friend_entity.dart';
 import 'package:first_assignment/features/home/domain/entities/sponser_entities.dart';
 import 'package:first_assignment/features/home/domain/repositories/home_repository.dart';
 
 class HomeRepositoryImpl implements HomeRepository {
-  HomeRepositoryImpl({required this.remoteDataSource});
+  HomeRepositoryImpl({
+    required this.remoteDataSource,
+    required this.localDataSource,
+    required this.networkInfo,
+  });
 
   final HomeRemoteDataSource remoteDataSource;
+  final HomeLocalDataSource localDataSource;
+  final NetworkInfo networkInfo;
 
   @override
   Future<Either<Failure, List<FriendEntity>>> getFriends() async {
     try {
-      final List<FriendEntity> result = await remoteDataSource.getFriends();
+      late List<FriendEntity> result;
+      // await networkInfo.isConnected
+      if (false) {
+        result = await remoteDataSource.getFriends();
+      } else {
+        result = await localDataSource.getFriends();
+      }
       return Right(result);
     } on ServerException catch (serverException) {
       return Left(ServerFailure(serverException.errorMessage));
@@ -24,7 +38,13 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   Future<Either<Failure, SponserEntity>> getSponsers() async {
     try {
-      final SponserEntity result = await remoteDataSource.getSponer();
+      late SponserEntity result;
+      // await networkInfo.isConnected
+      if (false) {
+        result = await remoteDataSource.getSponer();
+      } else {
+        result = await localDataSource.getSponer();
+      }
       return Right(result);
     } on ServerException catch (serverException) {
       return Left(ServerFailure(serverException.errorMessage));
