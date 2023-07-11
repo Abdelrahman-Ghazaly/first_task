@@ -48,14 +48,32 @@ class HomeLocalDataSourceImpl implements HomeLocalDataSource {
   }
 
   @override
-  Future<List<FriendEntity>> getFriends() {
-    // TODO: implement getFriends
-    throw UnimplementedError();
+  Future<List<FriendEntity>> getFriends() async {
+    final db = await database.instance();
+
+    final List<Map<String, dynamic>> response = await db.query('friends');
+
+    final List<FriendModel> friendModelList = List.from(
+      response.map(
+        (element) => FriendModel.fromMap(element),
+      ),
+    );
+
+    return friendModelList;
   }
 
   @override
-  Future<SponserEntity> getSponer() {
-    // TODO: implement getSponer
-    throw UnimplementedError();
+  Future<SponserEntity> getSponer() async {
+    final db = await database.instance();
+
+    final List<Map<String, dynamic>> response = await db.query('sponsers');
+
+    final List<SponserModel> sponserModelList = List.from(
+      response.map(
+        (element) => SponserModel.fromMap(element),
+      ),
+    );
+
+    return sponserModelList[0];
   }
 }

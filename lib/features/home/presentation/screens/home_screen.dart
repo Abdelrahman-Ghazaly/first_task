@@ -1,13 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:first_assignment/caching/sql_database/database_helper.dart';
 import 'package:first_assignment/core/constants/constants.dart';
 import 'package:first_assignment/features/home/presentation/provider/friends_provider.dart';
 import 'package:first_assignment/features/home/presentation/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:sqlite_viewer/sqlite_viewer.dart';
 
 import '../provider/sponser_provider.dart';
@@ -78,21 +76,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              Container(
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      FloatingActionButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                  builder: (_) => const DatabaseList()));
-                        },
-                      ),
-                    ],
-                  ),
+              Center(
+                child: FloatingActionButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (_) => const DatabaseList()));
+                  },
                 ),
               ),
               Container(),

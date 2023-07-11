@@ -11,13 +11,18 @@ class FriendModel extends FriendEntity {
   });
 
   factory FriendModel.fromMap(Map<String, dynamic> map) {
+    dynamic isOnline = map['isOnline'];
+    if (isOnline.runtimeType == int) {
+      isOnline = isOnline == 1 ? true : false;
+    }
+
     return FriendModel(
       id: map['id'] ?? 0,
       name: map['name'] ?? '',
       imageUrl: map['image'] ?? '',
       lastMessage: map['lastMessage'] ?? '',
       lastMessageTime: map['lastMessageTime'] ?? '',
-      isOnline: map['isOnline'] ?? false,
+      isOnline: isOnline ?? false,
     );
   }
 

@@ -23,7 +23,8 @@ class HomeRepositoryImpl implements HomeRepository {
   Future<Either<Failure, List<FriendEntity>>> getFriends() async {
     try {
       late List<FriendEntity> result;
-      if (await networkInfo.isConnected) {
+      // await networkInfo.isConnected
+      if (false) {
         result = await remoteDataSource.getFriends();
       } else {
         result = await localDataSource.getFriends();
@@ -38,7 +39,8 @@ class HomeRepositoryImpl implements HomeRepository {
   Future<Either<Failure, SponserEntity>> getSponsers() async {
     try {
       late SponserEntity result;
-      if (await networkInfo.isConnected) {
+      // await networkInfo.isConnected
+      if (false) {
         result = await remoteDataSource.getSponer();
       } else {
         result = await localDataSource.getSponer();
