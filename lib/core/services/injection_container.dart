@@ -1,5 +1,6 @@
 import 'package:data_connection_checker_tv/data_connection_checker.dart';
 import 'package:dio/dio.dart';
+import 'package:first_assignment/caching/sql_database/database_helper.dart';
 import 'package:first_assignment/core/network/network_info.dart';
 import 'package:first_assignment/features/home/data/data_sources/home_local_data_source.dart';
 import 'package:first_assignment/features/home/data/data_sources/home_remote_data_source.dart';
@@ -71,15 +72,22 @@ void initDataSources() {
   );
 
   sl.registerLazySingleton<HomeRemoteDataSource>(
-    () => HomeRemoteDataSourceImpl(dio: sl<Dio>()),
+    () => HomeRemoteDataSourceImpl(
+      dio: sl<Dio>(),
+      localDataSource: sl<HomeLocalDataSource>(),
+    ),
   );
 
-  sl.registerLazySingleton(() => HomeLocalDataSourceImpl());
+  sl.registerLazySingleton<HomeLocalDataSource>(
+    () => HomeLocalDataSourceImpl(database: sl<DatabaseHelper>()),
+  );
 }
 
-void initHelperClasses() {
+void initHelperClasses() async {
   sl.registerLazySingleton<NetworkInfo>(
       () => NetworkInfoImpl(connectionChecker: sl<DataConnectionChecker>()));
+
+  sl.registerLazySingleton(() => DatabaseHelper());
 }
 
 void initExternalPackages() {
