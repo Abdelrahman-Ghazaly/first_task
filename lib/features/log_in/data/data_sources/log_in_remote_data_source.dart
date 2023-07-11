@@ -37,7 +37,7 @@ class LogInRemoteDataSourceImpl implements LogInRemoteDataSource {
       ),
       data: data,
     );
-    print(response.data);
+
     if (response.statusCode == 200) {
       return UserModel.fromMap(response.data);
     } else {

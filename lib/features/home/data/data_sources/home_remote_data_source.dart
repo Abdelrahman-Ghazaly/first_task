@@ -29,9 +29,9 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
           (element) => FriendModel.fromMap(element),
         ),
       );
-      friendModelList.forEach((friendModel) {
-        localDataSource.addFriend(friendModel: friendModel);
-      });
+      for (var friendModel in friendModelList) {
+        await localDataSource.addFriend(friendModel: friendModel);
+      }
       return friendModelList;
     } else {
       throw ServerException(
@@ -47,7 +47,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
 
     if (response.statusCode == 200) {
       final SponserModel sponserModel = SponserModel.fromMap(response.data);
-      localDataSource.addSponser(sponserModel: sponserModel);
+      await localDataSource.addSponser(sponserModel: sponserModel);
 
       return sponserModel;
     } else {

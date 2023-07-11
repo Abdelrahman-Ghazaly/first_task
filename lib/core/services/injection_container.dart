@@ -24,6 +24,7 @@ void init() {
   initFeatuers();
   initRepository();
   initDataSources();
+  initHelperClasses();
   initExternalPackages();
 }
 

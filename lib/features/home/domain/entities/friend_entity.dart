@@ -1,5 +1,6 @@
 class FriendEntity {
   FriendEntity({
+    required this.id,
     required this.name,
     required this.imageUrl,
     required this.lastMessage,
@@ -7,6 +8,7 @@ class FriendEntity {
     required this.isOnline,
   });
 
+  final int id;
   final String name;
   final String imageUrl;
   final String lastMessage;

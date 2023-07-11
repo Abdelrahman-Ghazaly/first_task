@@ -2,6 +2,7 @@ import 'package:first_assignment/features/home/domain/entities/friend_entity.dar
 
 class FriendModel extends FriendEntity {
   FriendModel({
+    required super.id,
     required super.name,
     required super.imageUrl,
     required super.lastMessage,
@@ -11,6 +12,7 @@ class FriendModel extends FriendEntity {
 
   factory FriendModel.fromMap(Map<String, dynamic> map) {
     return FriendModel(
+      id: map['id'] ?? 0,
       name: map['name'] ?? '',
       imageUrl: map['image'] ?? '',
       lastMessage: map['lastMessage'] ?? '',
@@ -21,8 +23,9 @@ class FriendModel extends FriendEntity {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'id': id,
       'name': name,
-      'imageUrl': imageUrl,
+      'image': imageUrl,
       'lastMessage': lastMessage,
       'lastMessageTime': lastMessageTime,
       'isOnline': isOnline,

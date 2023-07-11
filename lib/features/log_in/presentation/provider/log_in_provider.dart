@@ -33,7 +33,7 @@ class LogInProvider extends ChangeNotifier {
     notifyListeners();
     if (failureOrUserEntity.isRight()) {
       Future.delayed(
-        Duration(seconds: 2),
+        const Duration(seconds: 2),
         () {
           Navigator.push(
             context,

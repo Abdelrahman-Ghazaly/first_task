@@ -2,6 +2,7 @@
 
 class SponserEntity {
   SponserEntity({
+    required this.id,
     required this.iconUrl,
     required this.imageUrl,
     required this.title,
@@ -9,6 +10,7 @@ class SponserEntity {
     required this.promo,
   });
 
+  final int id;
   final String iconUrl;
   final String imageUrl;
   final String title;

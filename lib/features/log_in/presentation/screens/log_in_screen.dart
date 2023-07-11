@@ -39,87 +39,83 @@ class _LogInScreenState extends State<LogInScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(kDeafultPadding),
-          child: Stack(
+          child: Column(
             children: [
-              Column(
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              Expanded(
+                flex: 3,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const Text(
+                      'Log In',
+                      style: TextStyle(
+                        fontSize: 35,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    AuthenticationTetField(
+                      controller: _userName,
+                      label: 'Username',
+                      icon: Icons.person_outline,
+                      hintText: 'Type your username',
+                    ),
+                    Column(
                       children: [
-                        const Text(
-                          'Log In',
-                          style: TextStyle(
-                            fontSize: 35,
-                            fontWeight: FontWeight.bold,
+                        AuthenticationTetField(
+                          controller: _password,
+                          label: 'Password',
+                          icon: Icons.lock_outline,
+                          hintText: 'Type your password',
+                          isPassword: true,
+                        ),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: TextButton(
+                            onPressed: () {},
+                            child: const Text('Forgot your password?'),
                           ),
                         ),
-                        AuthenticationTetField(
-                          controller: _userName,
-                          label: 'Username',
-                          icon: Icons.person_outline,
-                          hintText: 'Type your username',
-                        ),
-                        Column(
-                          children: [
-                            AuthenticationTetField(
-                              controller: _password,
-                              label: 'Password',
-                              icon: Icons.lock_outline,
-                              hintText: 'Type your password',
-                              isPassword: true,
-                            ),
-                            Align(
-                              alignment: Alignment.topRight,
-                              child: TextButton(
-                                onPressed: () {},
-                                child: const Text('Forgot your password?'),
-                              ),
-                            ),
-                          ],
-                        ),
-                        LogInButton(
-                          onTap: () async {
-                            await context.read<LogInProvider>().logIn(
-                                  context,
-                                  userName: _userName.text,
-                                  password: _password.text,
-                                );
-                          },
-                        ),
-                        const Text('Or Sign Up Using'),
-                        const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SocialMediaIcons(
-                              icon: AppIcons.facebook,
-                            ),
-                            SocialMediaIcons(
-                              icon: AppIcons.twitter,
-                            ),
-                            SocialMediaIcons(
-                              icon: AppIcons.google,
-                              isGoogle: true,
-                            ),
-                          ],
-                        ),
                       ],
                     ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                    LogInButton(
+                      onTap: () async {
+                        await context.read<LogInProvider>().logIn(
+                              context,
+                              userName: _userName.text,
+                              password: _password.text,
+                            );
+                      },
+                    ),
+                    const Text('Or Sign Up Using'),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text('Or Sign Up Using'),
-                        TextButton(
-                          onPressed: () {},
-                          child: const Text('SIGN UP'),
-                        )
+                        SocialMediaIcons(
+                          icon: AppIcons.facebook,
+                        ),
+                        SocialMediaIcons(
+                          icon: AppIcons.twitter,
+                        ),
+                        SocialMediaIcons(
+                          icon: AppIcons.google,
+                          isGoogle: true,
+                        ),
                       ],
                     ),
-                  ),
-                ],
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    const Text('Or Sign Up Using'),
+                    TextButton(
+                      onPressed: () {},
+                      child: const Text('SIGN UP'),
+                    )
+                  ],
+                ),
               ),
             ],
           ),

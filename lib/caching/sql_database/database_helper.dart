@@ -3,7 +3,7 @@ import 'package:sqflite/sqflite.dart' as sql;
 class DatabaseHelper {
   _createTables(sql.Database database) async {
     await database.execute('''
-    CREATE TABLE sopnesrs 
+    CREATE TABLE sponsers 
       (id INTEGER PRIMARY KEY,
       icon TEXT,
       image TEXT,
@@ -25,6 +25,7 @@ class DatabaseHelper {
   Future<sql.Database> instance() async {
     return sql.openDatabase(
       'cached_data.db',
+      version: 1,
       onCreate: (db, _) async {
         await _createTables(db);
       },

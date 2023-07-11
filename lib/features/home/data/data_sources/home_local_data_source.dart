@@ -25,8 +25,8 @@ class HomeLocalDataSourceImpl implements HomeLocalDataSource {
 
     final data = sponserModel.toMap();
 
-    db.insert(
-      'sopnesrs',
+    await db.insert(
+      'sponsers',
       data,
       conflictAlgorithm: sql.ConflictAlgorithm.replace,
     );
@@ -40,7 +40,7 @@ class HomeLocalDataSourceImpl implements HomeLocalDataSource {
 
     data['isOnline'] = data['isOnline'] ? 1 : 0;
 
-    db.insert(
+    await db.insert(
       'friends',
       data,
       conflictAlgorithm: sql.ConflictAlgorithm.replace,
