@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:first_assignment/features/home/domain/entities/friend_entity.dart';
 
 class FriendModel extends FriendEntity {
@@ -19,7 +21,7 @@ class FriendModel extends FriendEntity {
     return FriendModel(
       id: map['id'] ?? 0,
       name: map['name'] ?? '',
-      imageUrl: map['image'] ?? '',
+      imageUrl: map['image'],
       lastMessage: map['lastMessage'] ?? '',
       lastMessageTime: map['lastMessageTime'] ?? '',
       isOnline: isOnline ?? false,

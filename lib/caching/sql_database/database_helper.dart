@@ -15,7 +15,7 @@ class DatabaseHelper {
     CREATE TABLE friends 
       (id INTEGER PRIMARY KEY,
       name TEXT,
-      image TEXT,
+      image BLOB,
       lastMessage TEXT,
       lastMessageTime TEXT,
       isOnline INTEGER)

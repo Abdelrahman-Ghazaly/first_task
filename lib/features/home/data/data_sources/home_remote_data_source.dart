@@ -24,11 +24,17 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
     final Response response = await dio.get(ApiConstants.friends);
 
     if (response.statusCode == 200) {
+      for (var friend in response.data['friends']) {
+        friend['image'] = await _downloadImage(imageUrl: friend['image']);
+      }
       final List<FriendModel> friendModelList = List.from(
         response.data['friends'].map(
-          (element) => FriendModel.fromMap(element),
+          (element) {
+            return FriendModel.fromMap(element);
+          },
         ),
       );
+
       for (var friendModel in friendModelList) {
         await localDataSource.addFriend(friendModel: friendModel);
       }
@@ -46,6 +52,11 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
     final Response response = await dio.get(ApiConstants.sponser);
 
     if (response.statusCode == 200) {
+      response.data['image'] =
+          await _downloadImage(imageUrl: response.data['image']);
+      response.data['icon'] =
+          await _downloadImage(imageUrl: response.data['icon']);
+
       final SponserModel sponserModel = SponserModel.fromMap(response.data);
       await localDataSource.addSponser(sponserModel: sponserModel);
 
@@ -55,5 +66,15 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
         errorMessage: response.data?['message'] ?? kDeafultErrorMessage,
       );
     }
+  }
+
+  Future<List> _downloadImage({required String imageUrl}) async {
+    Response response = await dio.get(
+      imageUrl,
+      options: Options(
+        responseType: ResponseType.bytes,
+      ),
+    );
+    return response.data;
   }
 }
