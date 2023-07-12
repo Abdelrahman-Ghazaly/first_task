@@ -34,8 +34,7 @@ class SponserBox extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CircleAvatar(
-                      backgroundImage:
-                          NetworkImage(value.sponserEntity!.iconUrl),
+                      backgroundImage: MemoryImage(value.sponserEntity!.icon),
                       radius: 30,
                     ),
                     const SizedBox(width: kDeafultPadding / 2),
@@ -61,8 +60,8 @@ class SponserBox extends StatelessWidget {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15),
                                 image: DecorationImage(
-                                  image: NetworkImage(
-                                      value.sponserEntity!.imageUrl),
+                                  image:
+                                      MemoryImage(value.sponserEntity!.image),
                                   fit: BoxFit.cover,
                                 ),
                               ),

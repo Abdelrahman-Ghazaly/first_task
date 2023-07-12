@@ -24,7 +24,7 @@ class MessageBox extends StatelessWidget {
           child: Row(
             children: [
               FriendImage(
-                imageUrl: friendEntity.imageUrl,
+                image: friendEntity.imageUrl,
                 isOnline: friendEntity.isOnline,
               ),
               const SizedBox(

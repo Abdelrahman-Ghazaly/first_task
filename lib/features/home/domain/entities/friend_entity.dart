@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 class FriendEntity {
   FriendEntity({
     required this.id,
@@ -10,7 +12,7 @@ class FriendEntity {
 
   final int id;
   final String name;
-  final String imageUrl;
+  final Uint8List imageUrl;
   final String lastMessage;
   final String lastMessageTime;
   final bool isOnline;

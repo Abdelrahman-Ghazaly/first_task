@@ -19,30 +19,24 @@ class LogInProvider extends ChangeNotifier {
     required String userName,
     required String password,
   }) async {
-    final failureOrUserEntity = await _logInUseCase(
-      Params(userName: userName, password: password),
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const HomeScreen(),
+      ),
     );
 
-    failureOrUserEntity.fold(
-      (faliure) => _message = faliure.message,
-      (userEntity) {
-        _userEntity = userEntity;
-        _message = 'Logged in successfully';
-      },
-    );
-    notifyListeners();
-    if (failureOrUserEntity.isRight()) {
-      Future.delayed(
-        const Duration(seconds: 2),
-        () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const HomeScreen(),
-            ),
-          );
-        },
-      );
-    }
+    // final failureOrUserEntity = await _logInUseCase(
+    //   Params(userName: userName, password: password),
+    // );
+
+    // failureOrUserEntity.fold(
+    //   (faliure) => _message = faliure.message,
+    //   (userEntity) {
+    //     _userEntity = userEntity;
+    //     _message = 'Logged in successfully';
+    //   },
+    // );
+    // notifyListeners();
   }
 }

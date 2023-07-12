@@ -25,8 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _getData() async {
-    await context.read<FriendsProvider>().getFriends();
     await context.read<SponserProvider>().getSponser();
+    await context.read<FriendsProvider>().getFriends();
   }
 
   @override

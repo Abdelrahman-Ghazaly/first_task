@@ -15,9 +15,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String imageUrl = context.select<LogInProvider, String>(
-      (value) => value.userEntity!.imageUrl,
-    );
     return AppBar(
       backgroundColor: AppColors.white,
       elevation: 0,
@@ -29,7 +26,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
-              image: NetworkImage(imageUrl),
+              image: NetworkImage(
+                  context.watch<LogInProvider>().userEntity?.imageUrl ?? ''),
             ),
           ),
         ),
