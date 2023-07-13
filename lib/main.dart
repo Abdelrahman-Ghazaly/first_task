@@ -1,6 +1,8 @@
 import 'package:first_assignment/core/services/injection_container.dart';
 import 'package:first_assignment/features/home/domain/use_cases/get_friends_use_case.dart';
 import 'package:first_assignment/features/home/domain/use_cases/get_sponsers_use_case.dart';
+import 'package:first_assignment/features/home/presentation/cubit/friend_cubit/friend_cubit.dart';
+import 'package:first_assignment/features/home/presentation/cubit/sponser_cubit/sponser_cubit.dart';
 import 'package:first_assignment/features/home/presentation/provider/friends_provider.dart';
 import 'package:first_assignment/features/home/presentation/provider/sponser_provider.dart';
 import 'package:first_assignment/features/log_in/domain/use_cases/log_in_use_case.dart';
@@ -33,6 +35,14 @@ void main() {
         providers: [
           BlocProvider(
             create: (_) => LogInCubit(logInUseCase: sl<LogInUseCase>()),
+          ),
+          BlocProvider(
+            create: (_) =>
+                FriendCubit(getFriendsUseCase: sl<GetFriendsUseCase>()),
+          ),
+          BlocProvider(
+            create: (_) =>
+                SponserCubit(getSponsersUseCase: sl<GetSponsersUseCase>()),
           ),
         ],
         child: const MyApp(),

@@ -8,6 +8,8 @@ import 'package:first_assignment/features/home/data/repositories/home_repository
 import 'package:first_assignment/features/home/domain/repositories/home_repository.dart';
 import 'package:first_assignment/features/home/domain/use_cases/get_friends_use_case.dart';
 import 'package:first_assignment/features/home/domain/use_cases/get_sponsers_use_case.dart';
+import 'package:first_assignment/features/home/presentation/cubit/friend_cubit/friend_cubit.dart';
+import 'package:first_assignment/features/home/presentation/cubit/sponser_cubit/sponser_cubit.dart';
 import 'package:first_assignment/features/home/presentation/provider/friends_provider.dart';
 import 'package:first_assignment/features/home/presentation/provider/sponser_provider.dart';
 import 'package:first_assignment/features/log_in/data/data_sources/log_in_remote_data_source.dart';
@@ -22,6 +24,7 @@ final sl = GetIt.instance;
 
 void init() {
   initProvider();
+  initCubit();
   initFeatuers();
   initRepository();
   initDataSources();
@@ -41,6 +44,10 @@ void initProvider() {
 
 initCubit() {
   sl.registerFactory(() => LogInCubit(logInUseCase: sl<LogInUseCase>()));
+  sl.registerFactory(
+      () => FriendCubit(getFriendsUseCase: sl<GetFriendsUseCase>()));
+  sl.registerFactory(
+      () => SponserCubit(getSponsersUseCase: sl<GetSponsersUseCase>()));
 }
 
 void initFeatuers() {

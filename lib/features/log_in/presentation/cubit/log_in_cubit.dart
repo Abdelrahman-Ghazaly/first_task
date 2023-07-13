@@ -8,15 +8,17 @@ import 'package:equatable/equatable.dart';
 part 'log_in_state.dart';
 
 class LogInCubit extends Cubit<LogInState> {
-  LogInCubit({required this.logInUseCase}) : super(Empty());
+  LogInCubit({required LogInUseCase logInUseCase})
+      : _logInUseCase = logInUseCase,
+        super(Empty());
 
-  final LogInUseCase logInUseCase;
+  final LogInUseCase _logInUseCase;
 
   logIn({required String userName, required String password}) async {
     emit(Loading());
 
     final Either<Failure, UserEntity> failureOrSuccess =
-        await logInUseCase(Params(
+        await _logInUseCase(Params(
       userName: userName,
       password: password,
     ));
