@@ -19,7 +19,7 @@ class FriendModel extends FriendEntity {
     return FriendModel(
       id: map['id'] ?? 0,
       name: map['name'] ?? '',
-      imageUrl: map['image'] ?? '',
+      imageUrl: map['image'],
       lastMessage: map['lastMessage'] ?? '',
       lastMessageTime: map['lastMessageTime'] ?? '',
       isOnline: isOnline ?? false,

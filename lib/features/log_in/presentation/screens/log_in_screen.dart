@@ -114,11 +114,11 @@ class _LogInScreenState extends State<LogInScreen> {
                       },
                       child: LogInButton(
                         onTap: () async {
-                          await context.read<LogInProvider>().logIn(
-                                context,
-                                userName: _userName.text,
-                                password: _password.text,
-                              );
+                          // await context.read<LogInProvider>().logIn(
+                          //       context,
+                          //       userName: _userName.text,
+                          //       password: _password.text,
+                          //     );
                           await context.read<LogInCubit>().logIn(
                                 userName: _userName.text,
                                 password: _password.text,

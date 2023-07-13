@@ -15,23 +15,31 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String imageUrl = context.select<LogInProvider, String>(
-      (value) => value.userEntity!.imageUrl,
-    );
     return AppBar(
       backgroundColor: AppColors.white,
       elevation: 0,
       leading: Padding(
         padding: const EdgeInsets.symmetric(horizontal: kDeafultPadding / 2),
-        child: Container(
-          height: 20,
-          width: 20,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              image: NetworkImage(imageUrl),
-            ),
-          ),
+        child: Consumer<LogInProvider>(
+          builder: (context, value, child) {
+            final imageUrl = value.userEntity?.imageUrl;
+            late ImageProvider imageWidget;
+            if (imageUrl == null) {
+              imageWidget = const AssetImage(AppImages.deafultProfile);
+            } else {
+              imageWidget = NetworkImage(imageUrl);
+            }
+            return Container(
+              height: 20,
+              width: 20,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: imageWidget,
+                ),
+              ),
+            );
+          },
         ),
       ),
       centerTitle: true,
