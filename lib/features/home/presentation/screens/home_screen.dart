@@ -39,40 +39,11 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: const EdgeInsets.all(kDeafultPadding),
           child: TabBarView(
             children: [
-              SingleChildScrollView(
+              const SingleChildScrollView(
                 child: Column(
                   children: [
-                    const SponserBox(),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'More Conversations',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                        Consumer<FriendsProvider>(
-                          builder: (context, value, child) {
-                            if (value.friendEntities.isEmpty) {
-                              return const CircularProgressIndicator();
-                            } else {
-                              return Column(
-                                children: List.generate(
-                                  value.friendEntities.length,
-                                  (index) {
-                                    return MessageBox(
-                                      friendEntity: value.friendEntities[index],
-                                    );
-                                  },
-                                ),
-                              );
-                            }
-                          },
-                        )
-                      ],
-                    )
+                    SponserBox(),
+                    ConversationsList(),
                   ],
                 ),
               ),

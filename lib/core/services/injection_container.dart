@@ -14,6 +14,7 @@ import 'package:first_assignment/features/log_in/data/data_sources/log_in_remote
 import 'package:first_assignment/features/log_in/data/repositories/log_in_repository_impl.dart';
 import 'package:first_assignment/features/log_in/domain/repositories/log_in_repository.dart';
 import 'package:first_assignment/features/log_in/domain/use_cases/log_in_use_case.dart';
+import 'package:first_assignment/features/log_in/presentation/cubit/log_in_cubit.dart';
 import 'package:first_assignment/features/log_in/presentation/provider/log_in_provider.dart';
 import 'package:get_it/get_it.dart';
 
@@ -36,6 +37,10 @@ void initProvider() {
   sl.registerFactory(
     () => SponserProvider(getSponsersUseCase: sl<GetSponsersUseCase>()),
   );
+}
+
+initCubit() {
+  sl.registerFactory(() => LogInCubit(logInUseCase: sl<LogInUseCase>()));
 }
 
 void initFeatuers() {

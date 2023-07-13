@@ -1,7 +1,11 @@
 import 'package:first_assignment/core/constants/constants.dart';
+import 'package:first_assignment/features/home/presentation/screens/home_screen.dart';
+import 'package:first_assignment/features/log_in/presentation/cubit/log_in_cubit.dart';
 import 'package:first_assignment/features/log_in/presentation/provider/log_in_provider.dart';
 import 'package:first_assignment/features/log_in/presentation/widgets/widgets.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 class LogInScreen extends StatefulWidget {
@@ -77,14 +81,50 @@ class _LogInScreenState extends State<LogInScreen> {
                         ),
                       ],
                     ),
-                    LogInButton(
-                      onTap: () async {
-                        await context.read<LogInProvider>().logIn(
+                    BlocListener<LogInCubit, LogInState>(
+                      listener: (context, state) {
+                        if (state is Success) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Center(
+                                child: Text(
+                                  state.message,
+                                ),
+                              ),
+                              backgroundColor: AppColors.green,
+                            ),
+                          );
+                          Navigator.push(
                               context,
-                              userName: _userName.text,
-                              password: _password.text,
-                            );
+                              CupertinoPageRoute(
+                                builder: (context) => const HomeScreen(),
+                              ));
+                        } else if (state is Error) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Center(
+                                child: Text(
+                                  state.message,
+                                ),
+                              ),
+                              backgroundColor: AppColors.red,
+                            ),
+                          );
+                        }
                       },
+                      child: LogInButton(
+                        onTap: () async {
+                          await context.read<LogInProvider>().logIn(
+                                context,
+                                userName: _userName.text,
+                                password: _password.text,
+                              );
+                          await context.read<LogInCubit>().logIn(
+                                userName: _userName.text,
+                                password: _password.text,
+                              );
+                        },
+                      ),
                     ),
                     const Text('Or Sign Up Using'),
                     const Row(
