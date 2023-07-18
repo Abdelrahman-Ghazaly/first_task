@@ -12,12 +12,12 @@ class FriendCubit extends Cubit<FriendState> {
   FriendCubit({
     required GetFriendsUseCase getFriendsUseCase,
   })  : _getFriendsUseCase = getFriendsUseCase,
-        super(Empty());
+        super(const InitialState(isLoading: false));
 
   final GetFriendsUseCase _getFriendsUseCase;
 
   getFriends() async {
-    emit(Loading());
+    emit(const InitialState(isLoading: true));
     final failureOrSuccess = await _getFriendsUseCase(NoParams());
     emit(await _failureOrSuccess(failureOrSuccess));
   }

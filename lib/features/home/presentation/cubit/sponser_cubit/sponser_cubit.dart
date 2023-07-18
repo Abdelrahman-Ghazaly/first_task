@@ -12,12 +12,12 @@ part 'sponser_state.dart';
 class SponserCubit extends Cubit<SponserState> {
   SponserCubit({required GetSponsersUseCase getSponsersUseCase})
       : _getSponsersUseCase = getSponsersUseCase,
-        super(Empty());
+        super(const InitialState(isLoading: false));
 
   final GetSponsersUseCase _getSponsersUseCase;
 
   getSponser() async {
-    emit(Loading());
+    emit(const InitialState(isLoading: true));
     final failureOrSuccess = await _getSponsersUseCase(NoParams());
     emit(await _failureOrSuccess(failureOrSuccess));
   }

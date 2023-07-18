@@ -7,9 +7,16 @@ abstract class FriendState extends Equatable {
   List<Object> get props => [];
 }
 
-class Empty extends FriendState {}
+class InitialState extends FriendState {
+  const InitialState({required bool isLoading}) : _isLoading = isLoading;
 
-class Loading extends FriendState {}
+  final bool _isLoading;
+
+  bool get isLoading => _isLoading;
+
+  @override
+  List<Object> get props => [_isLoading];
+}
 
 class Success extends FriendState {
   const Success({

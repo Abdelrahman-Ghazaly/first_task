@@ -37,14 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: const EdgeInsets.all(kDeafultPadding),
           child: TabBarView(
             children: [
-              const SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SponserBox(),
-                    ConversationsList(),
-                  ],
-                ),
-              ),
+              const HomeWidget(),
               Center(
                 child: FloatingActionButton(
                   onPressed: () {

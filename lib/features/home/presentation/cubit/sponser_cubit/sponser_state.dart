@@ -7,9 +7,16 @@ abstract class SponserState extends Equatable {
   List<Object> get props => [];
 }
 
-class Empty extends SponserState {}
+class InitialState extends SponserState {
+  const InitialState({required bool isLoading}) : _isLoading = isLoading;
 
-class Loading extends SponserState {}
+  final bool _isLoading;
+
+  bool get isLoading => _isLoading;
+
+  @override
+  List<Object> get props => [_isLoading];
+}
 
 class Success extends SponserState {
   const Success({
