@@ -17,36 +17,21 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   init();
   runApp(
-    MultiProvider(
+    MultiBlocProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (context) => LogInProvider(logInUseCase: sl<LogInUseCase>()),
+        BlocProvider(
+          create: (_) => LogInCubit(logInUseCase: sl<LogInUseCase>()),
         ),
-        ChangeNotifierProvider(
-          create: (context) =>
-              FriendsProvider(getFriendsUseCase: sl<GetFriendsUseCase>()),
+        BlocProvider(
+          create: (_) =>
+              FriendCubit(getFriendsUseCase: sl<GetFriendsUseCase>()),
         ),
-        ChangeNotifierProvider(
-          create: (context) =>
-              SponserProvider(getSponsersUseCase: sl<GetSponsersUseCase>()),
+        BlocProvider(
+          create: (_) =>
+              SponserCubit(getSponsersUseCase: sl<GetSponsersUseCase>()),
         ),
       ],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (_) => LogInCubit(logInUseCase: sl<LogInUseCase>()),
-          ),
-          BlocProvider(
-            create: (_) =>
-                FriendCubit(getFriendsUseCase: sl<GetFriendsUseCase>()),
-          ),
-          BlocProvider(
-            create: (_) =>
-                SponserCubit(getSponsersUseCase: sl<GetSponsersUseCase>()),
-          ),
-        ],
-        child: const MyApp(),
-      ),
+      child: const MyApp(),
     ),
   );
 }
